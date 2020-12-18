@@ -19,7 +19,6 @@ public class Guard : MonoBehaviour
    
     //Behaviours
     public Selecter rootAI;
-
     public Sequence PatrolSequence;
 
     private void Awake()

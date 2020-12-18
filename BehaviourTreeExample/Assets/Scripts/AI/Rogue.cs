@@ -7,11 +7,20 @@ using UnityEngine.AI;
 public class Rogue : MonoBehaviour
 {
 
-    private BTBaseNode tree;
+    //private BTBaseNode tree;
     private NavMeshAgent agent;
     private Animator animator;
+    [SerializeField] private Transform playerTransform;
+    [SerializeField] private FieldOfView fov;
+    [SerializeField] private List<Transform> hidingSpots = new List<Transform>();
+
+    //Behaviour
+    public Selecter rootAI;
+    public Sequence RoqueSequence;
+
     private void Awake()
     {
+        fov = FindObjectOfType<FieldOfView>();
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponentInChildren<Animator>();
     }
@@ -19,11 +28,22 @@ public class Rogue : MonoBehaviour
     private void Start()
     {
         //TODO: Create your Behaviour tree here
+
+        RoqueSequence = new Sequence(new List<BTNode>
+        {
+           new FollowPlayerTask(playerTransform, animator, agent),
+           new PlayerSpottedTask(hidingSpots, fov, playerTransform, animator, agent),
+        });
+
+
+        //Root Selecter
+        rootAI = new Selecter(new List<BTNode> { RoqueSequence });
     }
 
     private void FixedUpdate()
     {
-        tree?.Run();
+        rootAI.Evaluate();
+        //tree?.Run();
     }
 
     //private void OnDrawGizmos()
