@@ -29,7 +29,7 @@ public class EnemySightedTask : BTNode
     {
         if(fow.IsHumanoidVisible == true && !weaponRecovered.IsWeaponRecovered)
         {
-            changeTextState.TextString = "EnemySightedTask::FindWeapon";
+            changeTextState.TextStringGuard = "EnemySightedTask::FindWeapon";
 
             Debug.Log(navMeshAgent.name + " Enemy Sighted!!");
             

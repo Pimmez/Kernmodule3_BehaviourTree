@@ -11,7 +11,7 @@ public class FieldOfView : MonoBehaviour
     public float viewAngle;
 
     public LayerMask targetMask;
-    public LayerMask obstacleMask;
+    //public LayerMask obstacleMask;
 
     [HideInInspector]
     public List<Transform> visibleTargets = new List<Transform>();
@@ -59,7 +59,7 @@ public class FieldOfView : MonoBehaviour
             {
                 float _dstToTarget = Vector3.Distance(transform.position, _target.position);
                 
-                if(!Physics.Raycast(transform.position, _dirToTarget, _dstToTarget, obstacleMask))
+                if(!Physics.Raycast(transform.position, _dirToTarget, _dstToTarget, LayerMasks.Obstacle))
                 {
                     visibleTargets.Add(_target);
                     isHumanoidVisible = true;

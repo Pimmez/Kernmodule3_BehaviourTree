@@ -29,7 +29,7 @@ public class ChaseTask : BTNode
     {
         if (weaponRecovered.IsWeaponRecovered && checkPlayerState.IsPlayerDeath == false)
         {
-            changeTextState.TextString = "ChaseTask::Chasing";
+            changeTextState.TextStringGuard = "ChaseTask::Chasing";
 
             Debug.Log("Chase...");
 
@@ -41,7 +41,7 @@ public class ChaseTask : BTNode
             }
             else if(Vector3.Distance(navMeshAgent.transform.position, playerTransform.position) <= 5f)
             {
-                changeTextState.TextString = "ChaseTask::Shooting";
+                changeTextState.TextStringGuard = "ChaseTask::Shooting";
 
                 navMeshAgent.isStopped = true;
                 anim.SetTrigger("isShooting");
@@ -52,7 +52,7 @@ public class ChaseTask : BTNode
         }
         else if(weaponRecovered.IsWeaponRecovered && checkPlayerState.IsPlayerDeath == true)
         {
-            changeTextState.TextString = "ChaseTask::KilledPlayer";
+            changeTextState.TextStringGuard = "ChaseTask::KilledPlayer";
 
             Debug.Log("Player is Killed");
             fov.IsHumanoidVisible = false;

@@ -9,14 +9,16 @@ public class PlayerSpottedTask : BTNode
     private Animator anim;
     private Transform playerTransform;
     private FieldOfView fov;
+    private ChangeTextState changeTextState;
 
     private Transform closesTransform = null;  
     private List<Transform> hidingSpots = new List<Transform>();
     private float minDist = Mathf.Infinity;
 
 
-    public PlayerSpottedTask(List<Transform> _hidingSpots, FieldOfView _fov, Transform _playerTransform, Animator _anim, NavMeshAgent _navMeshAgent)
+    public PlayerSpottedTask(ChangeTextState _changeTextState, List<Transform> _hidingSpots, FieldOfView _fov, Transform _playerTransform, Animator _anim, NavMeshAgent _navMeshAgent)
     {
+        changeTextState = _changeTextState;
         hidingSpots = _hidingSpots;
         fov = _fov;
         playerTransform = _playerTransform;
@@ -28,6 +30,8 @@ public class PlayerSpottedTask : BTNode
     {
         if(fov.IsHumanoidVisible == true)
         {
+            changeTextState.TextStringRoque = "PlayerSpottedTask::SearchHidingSpot";
+
             Debug.Log("Player has been spotted, Have to hide");
             foreach (Transform hidingSpot in hidingSpots)
             {
@@ -43,6 +47,8 @@ public class PlayerSpottedTask : BTNode
 
             if(Vector3.Distance(navMeshAgent.transform.position, closesTransform.position) <= 1f)
             {
+                changeTextState.TextStringRoque = "PlayerSpottedTask::Hiding";
+
                 anim.SetTrigger("isIdle");
                 navMeshAgent.isStopped = true;
             }

@@ -30,7 +30,7 @@ public class PatrolTask : BTNode
     {
         if(fow.IsHumanoidVisible == false)
         {
-            changeTextState.TextString = "PatrolTask::Patrolling";
+            changeTextState.TextStringGuard = "PatrolTask::Patrolling";
             anim.SetTrigger("isWalking");
 
             if (!target)
@@ -49,7 +49,7 @@ public class PatrolTask : BTNode
 
             if (_distToTarget <= minDistanceToTarget)
             {
-                changeTextState.TextString = "PatrolTask::StandingWatch";
+                changeTextState.TextStringGuard = "PatrolTask::StandingWatch";
 
                 Debug.Log(navMeshAgent.name + " reached " + target.name);
 

@@ -8,9 +8,12 @@ public class FollowPlayerTask : BTNode
     private NavMeshAgent navMeshAgent;
     private Animator anim;
     private Transform playerTransform;
+    private ChangeTextState changeTextState;
 
-    public FollowPlayerTask(Transform _playerTransform, Animator _anim, NavMeshAgent _navMeshAgent)
+
+    public FollowPlayerTask(ChangeTextState _changeTextState, Transform _playerTransform, Animator _anim, NavMeshAgent _navMeshAgent)
     {
+        changeTextState = _changeTextState;
         playerTransform = _playerTransform;
         anim = _anim;
         navMeshAgent = _navMeshAgent;
@@ -20,6 +23,8 @@ public class FollowPlayerTask : BTNode
     { 
         if(Vector3.Distance(navMeshAgent.transform.position, playerTransform.position) > 4f)
         {
+            changeTextState.TextStringRoque = "FollowPlayerTask::Following";
+
             Debug.Log("Player Out of range, lets walk");
 
             anim.SetTrigger("isWalking");
@@ -30,6 +35,8 @@ public class FollowPlayerTask : BTNode
         }
         else if(Vector3.Distance(navMeshAgent.transform.position, playerTransform.position) <= 4f && Vector3.Distance(navMeshAgent.transform.position, playerTransform.position) >= 2f)
         {
+            changeTextState.TextStringRoque = "FollowPlayerTask::StandingIdle";
+
             Debug.Log("We are close enough");
 
             anim.SetTrigger("isIdle");
